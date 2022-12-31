@@ -2,13 +2,37 @@ import Grid from "../components/Profile/grid"
 import Post from "../components/Post/post"
 import { useState } from "react"
 import Navbar from "../components/navbar"
+import classNames from 'classnames';
+
 function Profile() {
 
     const [showGrid, setShowGrid] = useState(true)
+    const Posts = classNames({
+        'bg-blue-500': showGrid,
+        'bg-blue-600': !showGrid,
+        'hover:bg-blue-600': true,
+        'text-white': true,
+        'font-bold': true,
+        'py-2': true,
+        'px-4': true,
+        'rounded-xl': true,
+    });
+
+    const Images = classNames({
+        'bg-blue-500': !showGrid,
+        'bg-blue-600': showGrid,
+        'hover:bg-blue-600': true,
+        'text-white': true,
+        'font-bold': true,
+        'py-2': true,
+        'px-4': true,
+        'rounded-xl': true,
+    });
 
     return (
         <>
             <Navbar />
+            
             <div className="flex justify-center">
                 <div className="md:w-2/3">
                     <img
@@ -30,17 +54,17 @@ function Profile() {
                         <button
                             onClick={() => setShowGrid(true)}
                             className="w-1/2 flex justify-center items-center border border-b-gray-600 mx-5">
-                            <span>Images</span>
+                            <span className={Images}>Images</span>
                         </button>
                         <button
                             onClick={() => setShowGrid(false)}
                             className="w-1/2 flex justify-center items-center border border-b-gray-600 mx-5">
-                            <span>Posts</span>
+                            <span className={Posts}>Posts</span>
                         </button>
                     </div>
 
                     {
-                        showGrid ? <Grid /> : <Post />
+                        showGrid ? <div className="mt-10"><Grid /></div> : <Post />
                     }
 
                 </div>
