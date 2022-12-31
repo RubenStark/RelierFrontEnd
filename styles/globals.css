@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* Like button */
+
+.like-btn-red{
+    background-color: #ed2553;
+}
+
+body{
+    background-color: #f7f7f7;
+}
