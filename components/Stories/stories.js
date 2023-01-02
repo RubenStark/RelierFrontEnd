@@ -4,16 +4,27 @@ import Story from "./story"
 
 function Stories() {
     const stories = useRef(null)
+    var scroll = 600
+
+    const isMobile = () => {
+        if (typeof window !== "undefined") {
+            return window.innerWidth <= 768
+        }
+    }
+
+    if (isMobile()) {
+        scroll = 450
+    }
 
     function scrollStories() {
         stories.current.scrollTo({
-            left: stories.current.scrollLeft + 600,
+            left: stories.current.scrollLeft + scroll,
             behavior: 'smooth'
         })
     }
     function scrollStoriesRight() {
         stories.current.scrollTo({
-            left: stories.current.scrollLeft - 600,
+            left: stories.current.scrollLeft - scroll,
             behavior: 'smooth'
         })
     }
