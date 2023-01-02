@@ -7,7 +7,6 @@ import { BiMessageRounded } from 'react-icons/bi'
 function Navbar() {
     return (
         <nav className="fixed w-full z-20 top-0 left-0 bg-white">
-
             <div className="container flex flex-wrap items-center justify-between mx-auto">
                 <Link href="/" className="flex items-center">
                     <img src="https://flowbite.com/docs/images/logo.svg" className="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
