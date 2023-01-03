@@ -1,4 +1,33 @@
+import { useState } from "react"
+import Message from "./message"
+
 function FullMessages() {
+
+    var [messages, setMessages] = useState(null)
+
+    if (messages) {
+        return (
+            <div className="w-full bg-gray-100 overflow-scroll">
+                {/* Messages */}
+                <div className="w-full flex flex-col-reverse">
+                    <div className="m-5"></div>
+                    <Message />
+                    <Message />
+                    <Message />
+                    <Message />
+                    <Message />
+                    <Message />
+                    <Message />
+                    <Message />
+
+                    <div className="w-full bottom-0 fixed">
+                        <textarea className="w-full" placeholder="Type a message" />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
 
         <div className="hidden sm:w-1/2 md:w-2/3 lg:w-3/4 border-l border-gray-200 sm:flex items-center justify-center text-center">
