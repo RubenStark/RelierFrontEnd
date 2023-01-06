@@ -1,35 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "../../styles/Create.module.css"
 
 function UploadImage() {
 
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useState();
+    const [image, setImage] = useState();
 
     const handleChange = (e) => {
-        if (e.target.files[0]) {
-            setImages(e.target.files[0]);
-        }
+        setImages(Array.from(event.target.files))
+        setImage(URL.createObjectURL(e.target.files[0]))
     };
 
+    const handleImageClick = (e) => {
+        setImage(e.target.src)
+    };
+
+    useEffect(() => {
+        console.log(images)
+    }, [images]);
+
     return (
-        // Left part of the createPost Page
-        <div className="h-full w-full flex justify-center items-center bg-white">
+        <>
+            <div className="h-full w-full bg-white grid grid-rows-6">
 
-            <div>
+                <div className="row-span-5 flex justify-center items-center">
 
-                {
-                    !images &&
-                    <label htmlFor="file-upload">
-                        <div className={style.btn}>Upload a Photo</div>
-                    </label>
-                }
+                    {
+                        !images &&
+                        <label htmlFor="file-upload">
+                            <div className={style.btn}>Upload a Photo</div>
+                        </label>
+                    }
 
-                <input id="file-upload" type="file" accept="image/*" required className="hidden" onChange={handleChange} multiple />
+                    {
+                        image && <img src={image} alt="image" />
+                    }
+
+                    <input id="file-upload" type="file" accept="image/*" required className="hidden" onChange={handleChange} multiple />
+                </div>
+
+                <div className="w-full row-span-1 flex justify-center gap-1 bg-cover">
+
+                {images?.map((image) => (
+                        <img
+                            className="h-full w-32 object-cover"
+                            key={image.name}
+                            src={URL.createObjectURL(image)}
+                            alt={image.name}
+                            onClick={handleImageClick}
+                        />
+                    ))}
+
+                </div>
+
             </div>
-
-            {images && <img className="Create-Image-Preview" src={URL.createObjectURL(images)} alt="Preview" />}
-
-        </div>
+        </>
     )
 
 }

@@ -35,6 +35,7 @@ function Profile() {
             
             <div className="flex justify-center">
                 <div className="md:w-2/3">
+                    
                     <img
                         src="https://thumbs.dreamstime.com/b/paisajes-de-yosemite-46208063.jpg"
                         alt="post"
