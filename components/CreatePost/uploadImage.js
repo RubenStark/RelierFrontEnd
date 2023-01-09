@@ -39,9 +39,10 @@ function UploadImage() {
                     <input id="file-upload" type="file" accept="image/*" required className="hidden" onChange={handleChange} multiple />
                 </div>
 
+                {/* Carrusel */}
                 <div className="w-full row-span-1 flex justify-center gap-1 bg-cover">
 
-                {images?.map((image) => (
+                    {images?.map((image) => (
                         <img
                             className="h-full w-32 object-cover"
                             key={image.name}
@@ -52,7 +53,6 @@ function UploadImage() {
                     ))}
 
                 </div>
-
             </div>
         </>
     )
