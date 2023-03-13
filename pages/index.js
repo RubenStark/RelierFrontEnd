@@ -1,3 +1,4 @@
+import BottomBar from '../components/bottomBar'
 import CreatePostIndex from '../components/CreatePost/createPostIndex'
 import Navbar from '../components/navbar'
 import Post from '../components/Post/post'
@@ -13,6 +14,8 @@ export default function Home() {
       <Post />
       <Post />
       <Post />
+
+      {/* <BottomBar /> */}
 
     </>
   )

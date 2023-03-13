@@ -34,7 +34,7 @@ function Profile() {
             <Navbar />
             
             <div className="flex justify-center">
-                <div className="md:w-2/3">
+                <div className="w-full max-w-2xl">
                     
                     <img
                         src="https://thumbs.dreamstime.com/b/paisajes-de-yosemite-46208063.jpg"
