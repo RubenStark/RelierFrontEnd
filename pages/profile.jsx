@@ -3,6 +3,7 @@ import Post from "../components/Post/post"
 import { useState } from "react"
 import Navbar from "../components/navbar"
 import classNames from 'classnames';
+import { Button } from "@nextui-org/react";
 
 function Profile() {
 
@@ -32,10 +33,10 @@ function Profile() {
     return (
         <>
             <Navbar />
-            
+
             <div className="flex justify-center">
                 <div className="w-full max-w-2xl">
-                    
+
                     <img
                         src="https://thumbs.dreamstime.com/b/paisajes-de-yosemite-46208063.jpg"
                         alt="post"
