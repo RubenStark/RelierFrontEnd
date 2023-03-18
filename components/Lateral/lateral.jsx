@@ -5,7 +5,7 @@ export default function Lateral() {
 
 
     return (
-        <div className="h-full bg-white fixed 2xl:w-full xl:max-w-xs hidden xl:block">
+        <div className="h-full bg-white fixed 2xl:w-60 xl:max-w-xs hidden xl:block shadow-lg">
 
             <AvatarSide />
 

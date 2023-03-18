@@ -1,5 +1,6 @@
 import { Avatar, Card, Grid, Text, Button, Row, Collapse } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import AvatarListTile from "../components/avatarListTile";
+import GridImage from "../components/gridImage";
 import Tag from "../components/tag";
 
 export default function Meet() {
@@ -14,23 +15,19 @@ export default function Meet() {
                 >
                     <Card.Header>
                         <div className="flex w-full">
-                            <div className="flex items-center justify-start w-full">
-                                <Avatar
-                                    src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                                    size="lg"
-                                />
-                                <div className="flex flex-col ml-5">
-                                    <Text>ruben_skays</Text>
-                                    <h3 className="text-gray-400">Ruben Lopez</h3>
-                                </div>
-                            </div>
 
-                            <Avatar
-                                text="15"
-                                textColor="white"
-                                size="lg"
-                                color="primary"
-                            />
+                            <AvatarListTile
+                                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                                name={"Ruben Skays"}
+                                username={"ruben_skays_777"}
+                            >
+                                <Avatar
+                                    text="15"
+                                    textColor="white"
+                                    size="lg"
+                                    color="primary"
+                                />
+                            </AvatarListTile>
 
                         </div>
                     </Card.Header>
@@ -40,7 +37,7 @@ export default function Meet() {
                         <div className="row justify-center">
                             <Text>I know Im gerring warm cause i feel so cold</Text>
                         </div>
-                        <div className="row mt-5 justify-around overflow-hidden">
+                        <div className="row mt-5 flex-wrap gap-2">
                             <Tag tag="Bike" />
                             <Tag tag="BMTH" />
                             <Tag tag="Developer" />
@@ -48,23 +45,23 @@ export default function Meet() {
                             <Tag tag="Musician" />
                         </div>
                     </Card.Body>
-                    {/* <Card.Divider />
+                    <Card.Divider />
                     <Card.Footer>
 
                         <div className="w-full">
-                        <Collapse.Group>
-                            <Collapse title="View Photos">
-                                <div className="grid grid-cols-2 gap-2 w-full">
-                                    <GridImage url="https://images.unsplash.com/photo-1678614033199-971226acb06a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1376&q=80" />
-                                    <GridImage url="https://images.unsplash.com/photo-1678614034745-dc7cafbd2f16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" />
-                                    <GridImage url="https://images.unsplash.com/photo-1678720175173-f57e293022e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" />
-                                    <GridImage url="https://images.unsplash.com/photo-1678680080955-6d527685095f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" />
-                                </div>
-                            </Collapse>
-                        </Collapse.Group>
+                            <Collapse.Group>
+                                <Collapse title="View Photos">
+                                    <div className="grid grid-cols-4 gap-2 w-full">
+                                        <GridImage url="https://images.unsplash.com/photo-1678614033199-971226acb06a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1376&q=80" />
+                                        <GridImage url="https://images.unsplash.com/photo-1678614034745-dc7cafbd2f16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80" />
+                                        <GridImage url="https://images.unsplash.com/photo-1678720175173-f57e293022e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" />
+                                        <GridImage url="https://images.unsplash.com/photo-1678680080955-6d527685095f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" />
+                                    </div>
+                                </Collapse>
+                            </Collapse.Group>
                         </div>
 
-                    </Card.Footer> */}
+                    </Card.Footer>
                 </Card >
             </div>
         </div>

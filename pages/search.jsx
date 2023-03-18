@@ -1,4 +1,5 @@
 import { Avatar } from "@nextui-org/react";
+import AvatarListTile from "../components/avatarListTile";
 
 export default function Search() {
     return (
@@ -21,21 +22,27 @@ export default function Search() {
 
                     {/* Users */}
 
-                    <div className="flex gap-5 items-cente">
-                        <Avatar
-                            size="lg"
-                            text="Grad"
-                            color="gradient"
-                            textColor="white"
-                        />
-                        <div className="flex flex-col">
-                            <span className="font-bold">ruben_skays_777</span>
-                            <span className="text-sm">Ruben Skays</span>
-                        </div>
-                    </div>
+                    <SearchedUser />
+                    <SearchedUser />
+                    <SearchedUser />
+                    <SearchedUser />
+
 
                 </div>
             </div>
         </>
+    );
+}
+
+
+function SearchedUser() {
+    return (
+        <div className="flex gap-5 items-center bg-white rounded-full mt-5 py-2">
+            <AvatarListTile
+                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                name={"Ruben Skays"}
+                username={"ruben_skays_777"}
+            />
+        </div>
     );
 }

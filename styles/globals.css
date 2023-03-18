@@ -12,6 +12,9 @@
 
 body{
     background-color: #f7f7f7;
+    min-height: 100vh; /* Establece un alto mínimo del 100% de la altura de la ventana del navegador */
+    margin: 0; /* Quita los márgenes predeterminados del body */
+    padding: 0; /* Quita el relleno predeterminado del body */
 }
 
 .row{

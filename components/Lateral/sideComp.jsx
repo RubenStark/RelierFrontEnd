@@ -1,6 +1,7 @@
 import { AiOutlineHome, AiOutlineVideoCameraAdd, AiOutlineSearch, AiOutlineHeart, AiOutlineCheckSquare } from 'react-icons/ai'
 import { IoCreateOutline } from 'react-icons/io5'
 import { BiMessageRounded } from 'react-icons/bi'
+import { BsPersonCheck } from "react-icons/bs"
 import Link from 'next/link'
 
 export default function SideComp() {
@@ -22,11 +23,18 @@ export default function SideComp() {
             link: 'search'
         },
         {
+            icon: <BsPersonCheck size={20} />,
+            mobileIcon: <BsPersonCheck size={30} />,
+            text: 'Meet',
+            count: 0,
+            link: 'meet'
+        },
+        {
             icon: <IoCreateOutline size={20} />,
             mobileIcon: <IoCreateOutline size={30} />,
             text: 'Create',
             count: 0,
-            link: 'create'
+            link: 'createPost'
         },
         {
             icon: <AiOutlineHeart size={20} />,
@@ -55,7 +63,7 @@ export default function SideComp() {
             text: 'Liked',
             count: 0,
             link: 'liked'
-        }
+        },
     ]
 
 
@@ -84,14 +92,14 @@ function ComputerSideComp({ sideIcons }) {
             {
                 sideIcons.map((item, index) => {
                     return (
-                        <div className="grid grid-cols-6 hover:bg-gray-300 items-center gap-5 py-2 transition ease-in-out delay-75">
+                        <div className="grid grid-cols-7 hover:bg-gray-300 items-center gap-5 py-2 transition ease-in-out delay-75">
                             <div className="col-span-1"></div>
                             <Link href={item.link}>
                                 <div className="col-span-1">
                                     {item.icon}
                                 </div>
                             </Link>
-                            <div className="text-gray-500 font-bold col-span-3">
+                            <div className="text-gray-700 font-normal col-span-3 text-lg">
                                 <Link href={item.link}>
                                     {item.text}
                                 </Link>

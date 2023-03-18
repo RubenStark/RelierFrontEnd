@@ -4,7 +4,7 @@ import Link from 'next/link'
 export default function BottomBar() {
 
     return (
-        <div className="fixed w-full bottom-0 bg-white flex items-center justify-center"> 
+        <div className="fixed w-full bottom-0 bg-white flex items-center justify-center xl:hidden"> 
             <div>
 
             <ul className="flex flex-row p-4 space-x-8">

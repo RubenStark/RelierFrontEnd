@@ -1,5 +1,7 @@
 import Lateral from '../components/Lateral/lateral'
 import MyNavbar from '../components/navbar'
+import BottomBar from '../components/bottomBar'
+
 import '../styles/globals.css'
 import { NextUIProvider } from '@nextui-org/react';
 
@@ -10,6 +12,7 @@ export default function App({ Component, pageProps }) {
       <div className="my-5"></div>
       <Lateral />
       <Component {...pageProps} />
+      <BottomBar />
     </NextUIProvider>
   )
 }
