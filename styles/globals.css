@@ -23,4 +23,10 @@ body{
     align-items: center;
 }
 
+.text-gradient{
+    background: -webkit-linear-gradient(#25cfed, #1ea7f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 /* CreatePost Button */

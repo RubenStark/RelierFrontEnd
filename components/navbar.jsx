@@ -1,10 +1,5 @@
 import React from 'react'
-import Avatar from './avatar'
-
-import { BiMessageRounded } from 'react-icons/bi'
-
-
-import { Navbar, Button, Link, Text, useTheme } from "@nextui-org/react";
+import { Navbar, Button, Link,} from "@nextui-org/react";
 
 
 function MyNavbar() {
