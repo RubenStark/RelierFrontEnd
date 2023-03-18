@@ -31,7 +31,6 @@ function Profile() {
 
     return (
         <>
-            <Navbar />
             
             <div className="flex justify-center">
                 <div className="md:w-2/3">
