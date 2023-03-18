@@ -1,4 +1,3 @@
-import { BiMessageRounded } from 'react-icons/bi'
 import { AiOutlineHome, AiOutlineVideoCameraAdd, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai'
 import Link from 'next/link'
 
