@@ -21,7 +21,7 @@ function UploadImage() {
 
     return (
         <>
-            <div className="h-full w-full bg-white grid grid-rows-6">
+            <div className="h-full w-full bg-white grid grid-rows-6 xl:ml-52">
 
                 <div className="row-span-5 flex justify-center items-center">
 
