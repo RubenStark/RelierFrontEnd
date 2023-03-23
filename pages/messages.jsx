@@ -1,4 +1,5 @@
-import { Input } from "@nextui-org/react";
+import { Card, Input, User, } from "@nextui-org/react";
+import AvatarListTile from "../components/avatarListTile";
 import { useState } from "react"
 
 function Messages() {
@@ -9,11 +10,10 @@ function Messages() {
                     <div className="border border-gray-200 rounded flex h-full">
                         {/* Left */}
                         <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-full max-w-sm bg-white">
-
                             {/* SearchBar */}
 
                             <div className="row justify-center mx-2 my-5">
-                                <Input clearable placeholder="Name" size="lg"/>
+                                <Input clearable placeholder="Name" size="lg" />
                             </div>
                             {/* Chats */}
                             <ul className="py-1 overflow-auto">
@@ -80,13 +80,21 @@ function Chat() {
 
     return (
         <li onClick={handleClick}>
-            <button className="flex items-center w-full px-4 py-2 select-none hover:bg-gray-100 focus:outline-none">
-                <img className="w-12 mr-3 rounded-full border" src="https://i.ibb.co/0ZDqmDs/142030673-447983159572512-6561194794076636819-n.jpg" alt="Junior Coders" />
-                <div className="transform translate-y-0.5 text-left">
-                    <h3 className="leading-4">junior.coders</h3>
-                    <span className="text-xs text-gray-500">Active 20s ago</span>
-                </div>
-            </button>
+            <Card
+                isHoverable
+                isPressable
+                variant="bordered"
+            >
+                <Card.Body>
+                    <User
+                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                        name="Ariana Wattson"
+                        description="Hey, I'm using NextUI!"
+                        bordered
+                        color="primary"
+                    />
+                </Card.Body>
+            </Card>
         </li>
     )
 }
@@ -110,29 +118,32 @@ function FullMessages() {
                     <Message />
                     <Message />
 
-                    <div className="w-full bottom-0 fixed max-w-3xl">
-                        <Input
-                            placeholder="Enter Your Message"
-                            fullWidth="true"
-                            status="primary"
-                            clearable
-                            contentRight={
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                                    />
-                                </svg>
-                            }
-                        />;
+                    <div className="w-full flex justify-center">
+                        <div className="w-full bottom-0 fixed max-w-sm md:max-w-lg xl:max-w-3xl mb-12 xl:mb-0">
+                            <Input
+                                size="lg"
+                                placeholder="Enter Your Message"
+                                fullWidth="true"
+                                status="primary"
+                                clearable
+                                contentRight={
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-6 w-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                                        />
+                                    </svg>
+                                }
+                            />;
+                        </div>
                     </div>
                 </div>
             </div>
