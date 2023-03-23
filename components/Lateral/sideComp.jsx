@@ -92,22 +92,20 @@ function ComputerSideComp({ sideIcons }) {
             {
                 sideIcons.map((item, index) => {
                     return (
-                        <div className="grid grid-cols-7 hover:bg-gray-300 items-center gap-5 py-2 transition ease-in-out delay-75">
-                            <div className="col-span-1"></div>
-                            <Link href={item.link}>
+                        <Link href={item.link}>
+                            <div className="grid grid-cols-7 hover:bg-gray-300 items-center gap-5 py-2 transition ease-in-out delay-75">
+                                <div className="col-span-1"></div>
                                 <div className="col-span-1">
                                     {item.icon}
                                 </div>
-                            </Link>
-                            <div className="text-gray-700 font-normal col-span-3 text-lg">
-                                <Link href={item.link}>
+                                <div className="text-gray-700 font-normal col-span-3 text-lg">
                                     {item.text}
-                                </Link>
+                                </div>
+                                <div className="col-span-1">
+                                    {item.count > 0 && <div className="bg-blue-500 rounded-full w-5 h-5 text-white text-xs flex justify-center items-center">{item.count}</div>}
+                                </div>
                             </div>
-                            <div className="col-span-1">
-                                {item.count > 0 && <div className="bg-blue-500 rounded-full w-5 h-5 text-white text-xs flex justify-center items-center">{item.count}</div>}
-                            </div>
-                        </div>
+                        </Link>
                     )
                 })
             }
