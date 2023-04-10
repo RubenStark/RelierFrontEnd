@@ -1,11 +1,12 @@
 import { Card, Input, User, } from "@nextui-org/react";
 import AvatarListTile from "../components/avatarListTile";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-function Messages() {
+
+function PcMessages() {
     return (
         <>
-            <div className="w-screen h-screen flex justify-center">
+            <div className="w-screen height-minus-navbar flex justify-center">
                 <div className="max-w-5xl w-full h-full">
                     <div className="border border-gray-200 rounded flex h-full">
                         {/* Left */}
@@ -36,7 +37,7 @@ function Messages() {
             </div>
 
         </>
-    );
+    )
 }
 
 export default Messages;
@@ -72,14 +73,10 @@ function Message() {
 }
 
 
-function Chat() {
-
-    const handleClick = () => {
-        console.log('Chat clicked');
-    }
+function Chat({ onClick }) {
 
     return (
-        <li onClick={handleClick}>
+        <li onClick={onClick}>
             <Card
                 isHoverable
                 isPressable
@@ -101,14 +98,14 @@ function Chat() {
 
 function FullMessages() {
 
-    var [messages, setMessages] = useState(null)
+    const [messages, setMessages] = useState(null)
 
     if (!messages) {
         return (
             <div className="w-full bg-white overflow-scroll">
                 {/* Messages */}
                 <div className="w-full flex flex-col-reverse">
-                    <div className="m-5"></div>
+                    <div className="m-14 md:m-5"></div>
                     <Message />
                     <Message />
                     <Message />
@@ -117,7 +114,6 @@ function FullMessages() {
                     <Message />
                     <Message />
                     <Message />
-
                     <div className="w-full flex justify-center">
                         <div className="w-full bottom-0 fixed max-w-sm md:max-w-lg xl:max-w-3xl mb-12 xl:mb-0">
                             <Input
@@ -168,4 +164,67 @@ function FullMessages() {
         </div>
 
     )
+}
+
+
+function MobileMessages() {
+
+    const [room, setRoom] = useState(null)
+
+    const handleClick = () => {
+        setRoom(true)
+    }
+
+    return (
+        <>
+            {
+                room && <div className="w-screen h-screen flex justify-center">
+                    <div className="max-w-5xl w-full h-full">
+                        <div className="border border-gray-200 rounded flex h-full">
+                            <FullMessages />
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+            {
+                !room && <div className="w-screen bg-white h-screen">
+                    {/* SearchBar */}
+                    <Input clearable placeholder="Name" size="lg" fullWidth />
+                    {/* Chats */}
+                    <ul className="py-1 overflow-auto">
+                        {/* Chats */}
+                        <Chat onClick={handleClick} />
+                        <Chat onClick={handleClick} />
+                        <Chat onClick={handleClick} />
+                        <Chat onClick={handleClick} />
+                        <Chat onClick={handleClick} />
+                        <Chat onClick={handleClick} />
+                    </ul>
+                </div>
+            }
+
+        </>
+    )
+}
+
+
+
+function Messages() {
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        if (window.innerWidth <= 768) {
+            setIsMobile(true)
+        }
+    }, [])
+
+    return (
+
+        <PcMessages />
+
+    );
 }

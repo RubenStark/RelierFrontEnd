@@ -29,4 +29,7 @@ body{
     -webkit-text-fill-color: transparent;
 }
 
-/* CreatePost Button */
+/* create a new class to get the height minus the navbar */
+.height-minus-navbar{
+    height: calc(100vh - 6rem);
+}
