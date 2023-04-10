@@ -1,5 +1,4 @@
 import { Card, Input, User, } from "@nextui-org/react";
-import AvatarListTile from "../components/avatarListTile";
 import { useEffect, useState } from "react"
 
 
