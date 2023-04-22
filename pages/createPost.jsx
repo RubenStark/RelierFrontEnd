@@ -7,7 +7,7 @@ function CreatePost() {
     return (
         <>
             <div className="w-screen h-screen">
-                <div className="h-full w-full flex px-20 justify-center">
+                <div className="h-full w-full flex lg:px-20 justify-center">
                     <UploadImage />
                     <div className="h-full w-1/2 bg-white">
                         <div className="flex items-center p-5">
