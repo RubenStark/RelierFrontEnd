@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
 
   const router = useRouter();
 
-  if (router.pathname === "/login") {
+  if (router.pathname === "/login" || router.pathname === "/messages" ) {
     return (
       <NextUIProvider>
         <Component {...pageProps} />
