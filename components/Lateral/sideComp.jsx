@@ -92,7 +92,7 @@ function ComputerSideComp({ sideIcons }) {
             {
                 sideIcons.map((item, index) => {
                     return (
-                        <Link href={item.link}>
+                        <Link href={item.link} key={index}>
                             <div className="grid grid-cols-7 hover:bg-gray-300 items-center gap-5 py-2 transition ease-in-out delay-75">
                                 <div className="col-span-1"></div>
                                 <div className="col-span-1">
@@ -122,7 +122,7 @@ function MobileSideComp({ sideIcons }) {
             {
                 sideIcons.map((item, index) => {
                     return (
-                        <Link href={item.link}>
+                        <Link href={item.link} key={index}>
                             {item.mobileIcon}
                         </Link>
                     )
