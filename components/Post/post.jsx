@@ -2,7 +2,36 @@ import Avatar from "../avatar";
 import Buttons from "./buttons";
 import Comments from "./comments";
 
-function Post() {
+function Post({ post }) {
+
+    // Create a function that takes the created_at value and returns the time since then
+    const timeSince = (date) => {
+        const seconds = Math.floor((new Date() - date) / 1000);
+
+        let interval = seconds / 31536000;
+
+        if (interval > 1) {
+            return Math.floor(interval) + " years";
+        }
+        interval = seconds / 2592000;
+        if (interval > 1) {
+            return Math.floor(interval) + " months";
+        }
+        interval = seconds / 86400;
+        if (interval > 1) {
+            return Math.floor(interval) + " days";
+        }
+        interval = seconds / 3600;
+        if (interval > 1) {
+            return Math.floor(interval) + " hours";
+        }
+        interval = seconds / 60;
+        if (interval > 1) {
+            return Math.floor(interval) + " minutes";
+        }
+        return Math.floor(seconds) + " seconds";
+    };
+
     return (
         <div className="w-full flex justify-center mt-10">
             <div className="max-w-2xl bg-white rounded-lg">
@@ -11,8 +40,8 @@ function Post() {
                     <div className="flex items-center">
                         <Avatar url='https://www.w3schools.com/howto/img_avatar.png' />
                         <div className="flex flex-col ml-4">
-                            <span className="font-semibold">Username</span>
-                            <span className="text-xs text-gray-500">1hr ago</span>
+                            <span className="font-semibold">{post.User.Name}</span>
+                            <span className="text-xs text-gray-500">{timeSince(post.CreatedAt)} ago</span>
                         </div>
                     </div>
                     <div className="flex items-center">
