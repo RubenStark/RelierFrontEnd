@@ -28,7 +28,7 @@ export function signUpApi(user) {
     });
 }
 
-export async function signInApi(user) {
+export function signInApi(user) {
   const url = `${API_HOST}/login`;
 
   const params = {
@@ -39,17 +39,19 @@ export async function signInApi(user) {
     body: JSON.stringify(user)
   };
 
-  try {
-    const response = await fetch(url, params);
-    if (response.status >= 200 && response.status < 300) {
-      const result = await response.json();
-      return result;
-    } else {
+  return fetch(url, params)
+    .then(response => {
+      if (response.status >= 200 && response.status < 300) {
+        return response.json();
+      }
       return { message: "Usuario o contraseña incorrectos" };
-    }
-  } catch (err) {
-    return err;
-  }
+    })
+    .then(result => {
+      return result;
+    })
+    .catch(err => {
+      return err;
+    });
 };
 
 export function setTokenApi(token) {

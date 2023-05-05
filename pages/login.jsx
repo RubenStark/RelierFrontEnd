@@ -4,8 +4,7 @@ import { values, size } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../utils/validations";
 import { setTokenApi, signInApi, signUpApi } from "../api/auth";
-// import { signUpApi } from "../api/user";
-
+import { useRouter } from "next/router";
 
 function initialFormValue() {
     return {
@@ -20,6 +19,7 @@ function Login() {
     const [signUp, setSignUp] = useState(false);
     const [formData, setFormData] = useState(initialFormValue());
     const [signUpLoading, setSignUpLoading] = useState(false);
+    const router = useRouter();
 
     const handleClick = () => {
         setSignUp(!signUp);
@@ -68,6 +68,7 @@ function Login() {
                         toast.warning(response.message);
                     } else {
                         setTokenApi(response.token);
+                        router.push('/some-path');
                     }
                 })
                 .catch(() => {

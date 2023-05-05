@@ -16,8 +16,11 @@ import { isUserLogedApi } from '../api/auth'
 
 export default function App({ Component, pageProps }) {
 
+  const [user, setUser] = useState(undefined);
+  
   const router = useRouter();
   const queryClient = new QueryClient()
+
 
   if (router.pathname === "/login" || router.pathname === "/register") {
     return (
