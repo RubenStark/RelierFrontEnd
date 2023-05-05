@@ -1,5 +1,7 @@
-import { Card, Input, User, } from "@nextui-org/react";
+import { Avatar, Card, Dropdown, Input, Text, User, } from "@nextui-org/react";
 import { useEffect, useState } from "react"
+import { Navbar, Button, Link, } from "@nextui-org/react";
+import BottomBar from "../components/bottomBar";
 
 
 function PcMessages() {
@@ -168,7 +170,7 @@ function FullMessages() {
 
 function MobileMessages() {
 
-    const [room, setRoom] = useState(null)
+    const [room, setRoom] = useState(false)
 
     const handleClick = () => {
         setRoom(true)
@@ -213,17 +215,58 @@ function MobileMessages() {
 
 function Messages() {
 
-    const [isMobile, setIsMobile] = useState(false)
+    const [isMobile, setIsMobile] = useState(null)
 
     useEffect(() => {
         if (window.innerWidth <= 768) {
             setIsMobile(true)
         }
-    }, [])
+    })
+
+    if (isMobile) {
+        return (
+            <>
+                <MessagesNavbar />
+                <MobileMessages />
+                <BottomBar />
+            </>
+        )
+    }
 
     return (
-
         <PcMessages />
+    )
+}
 
+function MessagesNavbar() {
+    return (
+        <Navbar isBordered variant="sticky">
+            <Navbar.Toggle showIn="xs" />
+            <Navbar.Brand
+                css={{
+                    "@xs": {
+                        w: "12%",
+                    },
+                }}>
+                <h1>Ruben Skays</h1>
+            </Navbar.Brand>
+            <Navbar.Content
+                css={{
+                    "@xs": {
+                        w: "12%",
+                        jc: "flex-end",
+                    },
+                }}>
+                <Navbar.Item>
+                    <Avatar
+                        bordered
+                        as="button"
+                        color="warning"
+                        size="md"
+                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                    />
+                </Navbar.Item>
+            </Navbar.Content>
+        </Navbar>
     );
 }

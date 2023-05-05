@@ -19,13 +19,7 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const queryClient = new QueryClient()
 
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    setUser(isUserLogedApi());
-  }, [])
-
-  if (router.pathname === "/login") {
+  if (router.pathname === "/login" || router.pathname === "/register") {
     return (
       <QueryClientProvider client={queryClient}>
         <NextUIProvider>

@@ -4,16 +4,16 @@ import { BsHeart } from "react-icons/bs";
 function Button({ like, laugh, love }) {
 
     if (like) {
-        var color = 'bg-blue-500 rounded-lg'
-        var word = 'Like'
+        let color = 'bg-blue-500 rounded-lg'
+        let word = 'Like'
     }
     if (laugh) {
-        var color = 'bg-yellow-500 rounded-lg'
-        var word = 'Laugh'
+        let color = 'bg-yellow-500 rounded-lg'
+        let word = 'Laugh'
     }
     if (love) {
-        var color = 'like-btn-red rounded-lg'
-        var word = 'Love'
+        let color = 'like-btn-red rounded-lg'
+        let word = 'Love'
     }
 
     return (
