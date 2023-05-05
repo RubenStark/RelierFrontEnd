@@ -1,4 +1,4 @@
-import { url } from "./utils";
+import { url } from "../utils/constants";
 
 // A function to fetch posts from the API
 export const fetchPosts = async () => {

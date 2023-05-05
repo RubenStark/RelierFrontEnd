@@ -1,25 +1,128 @@
-import { Card, Text, Input, Row, Checkbox, StyledButton } from "@nextui-org/react";
-import { useState } from "react";
+import { Card, Text, Input, Row, Checkbox, StyledButton, Loading } from "@nextui-org/react";
+import { useEffect, useState } from "react";
+import { values, size } from "lodash";
+import { toast } from "react-toastify";
+import { isEmailValid } from "../utils/validations";
+import { setTokenApi, signInApi, signUpApi } from "../api/auth";
+// import { signUpApi } from "../api/user";
+
+
+function initialFormValue() {
+    return {
+        name: "",
+        username: "",
+        email: "",
+        password: "",
+    };
+}
 
 function Login() {
     const [signUp, setSignUp] = useState(false);
+    const [formData, setFormData] = useState(initialFormValue());
+    const [signUpLoading, setSignUpLoading] = useState(false);
 
     const handleClick = () => {
         setSignUp(!signUp);
-    }
+    };
+
+    const onChange = e => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        let validCount = 0;
+        values(formData).some(value => {
+            value && validCount++;
+            return null;
+        });
+
+        if (signUp) {
+            if (validCount !== size(formData)) {
+                toast.warning("Completa todos los campos del formulario");
+            } else {
+                ValidateSignUp();
+            }
+        } else {
+            if (validCount !== size(formData) - 2) {
+                toast.warning("Completa todos los campos del formulario");
+            } else {
+                ValidateLogin();
+            }
+        }
+    };
+
+    function ValidateLogin() {
+
+        if (!isEmailValid(formData.email)) {
+            toast.warning("Email invalido");
+        } else if (size(formData.password) < 6) {
+            toast.warning("La contraseña tiene que tener al menos 6 caracteres");
+        } else {
+            setSignUpLoading(true);
+            signInApi(formData)
+                .then(response => {
+                    if (response.message) {
+                        toast.warning(response.message);
+                    } else {
+                        setTokenApi(response.token);
+                    }
+                })
+                .catch(() => {
+                    toast.error("Error del servidor, inténtelo más tarde!");
+                })
+                .finally(() => {
+                    setSignUpLoading(false);
+                    setFormData(initialFormValue());
+                });
+        }
+
+    };
+
+
+    function ValidateSignUp() {
+
+        if (!isEmailValid(formData.email)) {
+            toast.warning("Email invalido");
+        } else if (size(formData.password) < 6) {
+            toast.warning("La contraseña tiene que tener al menos 6 caracteres");
+        } else {
+            setSignUpLoading(true);
+            signUpApi(formData)
+                .then(response => {
+                    if (response.code === 200) {
+                        toast.success("El registro ha sido correcto");
+                    } else {
+                        toast.warning(response.message);
+                    }
+                })
+                .catch(() => {
+                    toast.error("Error del servidor, inténtelo más tarde!");
+                })
+                .finally(() => {
+                    setSignUpLoading(false);
+                    setFormData(initialFormValue());
+                });
+        }
+
+    };
+
 
     return (
 
         <>
             <section className="fixed w-full bottom-0">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,128L30,112C60,96,120,64,180,48C240,32,300,32,360,48C420,64,480,96,540,138.7C600,181,660,235,720,250.7C780,267,840,245,900,213.3C960,181,1020,139,1080,106.7C1140,75,1200,53,1260,64C1320,75,1380,117,1410,138.7L1440,160L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fillOpacity="1" d="M0,128L30,112C60,96,120,64,180,48C240,32,300,32,360,48C420,64,480,96,540,138.7C600,181,660,235,720,250.7C780,267,840,245,900,213.3C960,181,1020,139,1080,106.7C1140,75,1200,53,1260,64C1320,75,1380,117,1410,138.7L1440,160L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z"></path></svg>
             </section>
             <section className="fixed w-full top-20 row justify-center">
                 <span className="text-6xl font-bold text-gradient">Welcome to Relier</span>
             </section>
             <div className="w-full flex justify-center">
                 <div className="max-w-xl w-full h-screen row">
-                    <Card shadow>
+
+                    <Card>
                         <Card.Header>
                             <div className="row w-full justify-center">
                                 <Text id="modal-title" size={18}>
@@ -28,77 +131,91 @@ function Login() {
                             </div>
                         </Card.Header>
                         <Card.Body>
+                            <form onChange={onChange} onSubmit={onSubmit}>
+                                <Input
+                                    clearable
+                                    bordered
+                                    fullWidth
+                                    color="primary"
+                                    size="lg"
+                                    placeholder="Email"
+                                    contentLeft={<Mail fill="currentColor" />}
+                                    value={formData.email}
+                                    name="email"
+                                />
+                                <div className="h-5" />
 
-                            <Input
-                                clearable
-                                bordered
-                                fullWidth
-                                color="primary"
-                                size="lg"
-                                placeholder="Email"
-                                contentLeft={<Mail fill="currentColor" />}
-                            />
-                            <div className="h-5" />
+                                {
+                                    signUp && (
+                                        <>
+                                            <Input
+                                                clearable
+                                                bordered
+                                                fullWidth
+                                                color="primary"
+                                                size="lg"
+                                                placeholder="Username"
+                                                contentLeft={<Mail fill="currentColor" />}
+                                                value={formData.username}
+                                                name="username"
+                                            />
+                                            <div className="h-5" />
 
-                            {
-                                signUp && (
-                                    <>
-                                        <Input
-                                            clearable
-                                            bordered
-                                            fullWidth
-                                            color="primary"
-                                            size="lg"
-                                            placeholder="Username"
-                                            contentLeft={<Mail fill="currentColor" />}
-                                        />
-                                        <div className="h-5" />
+                                            <Input
+                                                clearable
+                                                bordered
+                                                fullWidth
+                                                color="primary"
+                                                size="lg"
+                                                placeholder="Name"
+                                                contentLeft={<Mail fill="currentColor" />}
+                                                value={formData.name}
+                                                name="name"
+                                            />
+                                            <div className="h-5" />
+                                        </>
+                                    )
+                                }
 
-                                        <Input
-                                            clearable
-                                            bordered
-                                            fullWidth
-                                            color="primary"
-                                            size="lg"
-                                            placeholder="Name"
-                                            contentLeft={<Mail fill="currentColor" />}
-                                        />
-                                        <div className="h-5" />
-                                    </>
-                                )
-                            }
-
-                            <Input.Password
-                                clearable
-                                bordered
-                                fullWidth
-                                color="primary"
-                                size="lg"
-                                placeholder="Password"
-                                contentLeft={<Password fill="currentColor" />}
-                            />
-                            <div className="h-5" />
+                                <Input.Password
+                                    clearable
+                                    bordered
+                                    fullWidth
+                                    color="primary"
+                                    size="lg"
+                                    placeholder="Password"
+                                    contentLeft={<Password fill="currentColor" />}
+                                    value={formData.password}
+                                    name="password"
+                                />
+                                <div className="h-5" />
 
 
-                            <Row justify="space-between">
-                                <Checkbox>
-                                    <Text size={14}>Remember me</Text>
-                                </Checkbox>
-                                <div className="text-sm cursor-pointer" onClick={handleClick}>
-                                    {signUp ? "Already have an account?" : "Don't have an account?"}
+                                <Row justify="space-between">
+                                    <Checkbox>
+                                        <Text size={14}>Remember me</Text>
+                                    </Checkbox>
+                                    <div className="text-sm cursor-pointer" onClick={handleClick}>
+                                        {signUp ? "Already have an account?" : "Don't have an account?"}
+                                    </div>
+                                </Row>
+
+
+                                <div className="mt-5 flex justify-center">
+                                    <button className="cta" type="submit">
+                                        <span>Submit</span>
+                                        {
+                                            signUpLoading && (
+                                                <Loading color="currentColor" size="sm" />
+                                            )
+                                        }
+                                    </button>
                                 </div>
-                            </Row>
+                            </form>
                         </Card.Body>
-                        <Card.Footer>
-                            <div className="row justify-end w-full">
-                                <StyledButton color="primary">
-                                    Submit
-                                </StyledButton>
-                            </div>
-                        </Card.Footer>
                     </Card>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

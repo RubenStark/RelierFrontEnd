@@ -6,6 +6,10 @@
 
 /* Like button */
 
+*{
+    /* border: #ed2553 1px solid; */
+}
+
 .like-btn-red{
     background-color: #ed2553;
 }

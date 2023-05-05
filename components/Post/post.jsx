@@ -5,32 +5,26 @@ import Comments from "./comments";
 function Post({ post }) {
 
     // Create a function that takes the created_at value and returns the time since then
-    const timeSince = (date) => {
-        const seconds = Math.floor((new Date() - date) / 1000);
-
-        let interval = seconds / 31536000;
-
-        if (interval > 1) {
-            return Math.floor(interval) + " years";
+    function timeSince(post) {
+        const now = new Date();
+        const createdAt = new Date(post);
+        const diff = now.getTime() - createdAt.getTime();
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+      
+        if (days > 0) {
+          return `${days} day${days === 1 ? "" : "s"} ago`;
+        } else if (hours > 0) {
+          return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+        } else if (minutes > 0) {
+          return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+        } else {
+          return `${seconds} second${seconds === 1 ? "" : "s"} ago`;
         }
-        interval = seconds / 2592000;
-        if (interval > 1) {
-            return Math.floor(interval) + " months";
-        }
-        interval = seconds / 86400;
-        if (interval > 1) {
-            return Math.floor(interval) + " days";
-        }
-        interval = seconds / 3600;
-        if (interval > 1) {
-            return Math.floor(interval) + " hours";
-        }
-        interval = seconds / 60;
-        if (interval > 1) {
-            return Math.floor(interval) + " minutes";
-        }
-        return Math.floor(seconds) + " seconds";
-    };
+      }
+      
 
     return (
         <div className="w-full flex justify-center mt-10">
@@ -41,7 +35,7 @@ function Post({ post }) {
                         <Avatar url='https://www.w3schools.com/howto/img_avatar.png' />
                         <div className="flex flex-col ml-4">
                             <span className="font-semibold">{post.User.Name}</span>
-                            <span className="text-xs text-gray-500">{timeSince(post.CreatedAt)} ago</span>
+                            <span className="text-xs text-gray-500">{timeSince(post.CreatedAt)}</span>
                         </div>
                     </div>
                     <div className="flex items-center">
@@ -68,6 +62,10 @@ function Post({ post }) {
                     alt="post"
                     className="w-full"
                 />
+                {/* Caption */}
+                <div className="p-5">
+                    <span className="font-semibold">{post.caption}</span>
+                </div>
                 <Buttons />
                 <Comments />
                 {/* Add a comment */}
