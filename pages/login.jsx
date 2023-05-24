@@ -68,7 +68,7 @@ function Login() {
                         toast.warning(response.message);
                     } else {
                         setTokenApi(response.token);
-                        router.push('/some-path');
+                        router.push('/');
                     }
                 })
                 .catch(() => {
@@ -93,10 +93,11 @@ function Login() {
             setSignUpLoading(true);
             signUpApi(formData)
                 .then(response => {
+                    console.log(response)
                     if (response.code === 200) {
-                        toast.success("El registro ha sido correcto");
+                        toast.success(response.message);
                     } else {
-                        toast.warning(response.message);
+                        toast.warning(response.code + " " + response.message);
                     }
                 })
                 .catch(() => {

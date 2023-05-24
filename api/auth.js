@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 
 export function signUpApi(user) {
 
-  const url = `${API_HOST}/registro`;
+  const url = `${API_HOST}/signup`;
 
   const params = {
     method: "POST",
@@ -15,10 +15,10 @@ export function signUpApi(user) {
 
   return fetch(url, params)
     .then(response => {
-      if (response.status >= 200 && response.status < 300) {
-        return response.json();
+      if (response.status === 200) {
+        return { code: 200, message: "El registro ha sido correcto"};
       }
-      return { code: 404, message: "Email no disponible" };
+      return response.json();
     })
     .then(result => {
       return result;
