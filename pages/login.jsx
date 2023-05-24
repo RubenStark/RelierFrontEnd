@@ -1,5 +1,5 @@
 import { Card, Text, Input, Row, Checkbox, StyledButton, Loading } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { values, size } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../utils/validations";
