@@ -1,13 +1,11 @@
-import { url } from "../utils/constants";
+import { API_HOST } from "../utils/constants";
 
-// A function to fetch posts from the API
-export const fetchPosts = async () => {
-    const res = await fetch(url + "/posts/", {
-        method: "GET",
-        headers: {
-        "Content-Type": "application/json",
-        },
-    });
-    const data = await res.json();
-    return data;
-    }
+export async function fetchPosts() {
+  const response = await fetch(API_HOST + '/posts');
+  if (!response.ok) {
+    throw new Error('Failed to fetch posts');
+  }
+  const data = await response.json();
+  console.log('Fetched posts:', data); // Log the fetched posts
+  return data;
+}

@@ -1,3 +1,4 @@
+import { API_HOST } from "../../utils/constants";
 import Avatar from "../avatar";
 import Buttons from "./buttons";
 import Comments from "./comments";
@@ -24,7 +25,8 @@ function Post({ post }) {
           return `${seconds} second${seconds === 1 ? "" : "s"} ago`;
         }
       }
-      
+
+      const avatar_url = API_HOST + "/media/profile_pics/" + post.User.Avatar
 
     return (
         <div className="w-full flex justify-center mt-10">
@@ -32,9 +34,9 @@ function Post({ post }) {
                 {/* Header */}
                 <div className="flex items-center justify-between p-5">
                     <div className="flex items-center">
-                        <Avatar url='https://www.w3schools.com/howto/img_avatar.png' />
+                        <Avatar url={avatar_url} />
                         <div className="flex flex-col ml-4">
-                            <span className="font-semibold">{post.User.Name}</span>
+                            <span className="font-semibold">{post.User.name}</span>
                             <span className="text-xs text-gray-500">{timeSince(post.CreatedAt)}</span>
                         </div>
                     </div>

@@ -142,7 +142,8 @@ function Login() {
                                     size="lg"
                                     placeholder="Email"
                                     contentLeft={<Mail fill="currentColor" />}
-                                    value={formData.email}
+                                    // value={formData.email}
+                                    label="Email"
                                     name="email"
                                 />
                                 <div className="h-5" />
@@ -159,6 +160,7 @@ function Login() {
                                                 placeholder="Username"
                                                 contentLeft={<Mail fill="currentColor" />}
                                                 value={formData.username}
+                                                label="Username"
                                                 name="username"
                                             />
                                             <div className="h-5" />
@@ -172,6 +174,7 @@ function Login() {
                                                 placeholder="Name"
                                                 contentLeft={<Mail fill="currentColor" />}
                                                 value={formData.name}
+                                                label="Name"
                                                 name="name"
                                             />
                                             <div className="h-5" />
@@ -188,6 +191,7 @@ function Login() {
                                     placeholder="Password"
                                     contentLeft={<Password fill="currentColor" />}
                                     value={formData.password}
+                                    label="Password"
                                     name="password"
                                 />
                                 <div className="h-5" />
