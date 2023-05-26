@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from 'next/router';
 import { NextUIProvider } from '@nextui-org/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { AuthContext } from '../utils/context'
 import { isUserLogedApi } from '../api/auth'
@@ -28,6 +28,7 @@ export default function App({ Component, pageProps }) {
     setRefreshCheckLogin(false);
     setLoadUser(true);
   }, [refreshCheckLogin]);
+
 
   if (!loadUser) return null;
 

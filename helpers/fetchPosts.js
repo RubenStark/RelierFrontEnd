@@ -6,6 +6,6 @@ export async function fetchPosts() {
     throw new Error('Failed to fetch posts');
   }
   const data = await response.json();
-  console.log('Fetched posts:', data); // Log the fetched posts
+  // console.log('Fetched posts:', data); 
   return data;
 }

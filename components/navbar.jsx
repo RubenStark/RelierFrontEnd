@@ -5,7 +5,7 @@ import { Navbar, Button, Link, } from "@nextui-org/react";
 function MyNavbar() {
     return (
 
-        <Navbar variant="sticky">
+        <Navbar variant="sticky" maxWidth={'fluid'}>
             <Navbar.Brand>
                 <Link href="/">
                     <span className='font-bold text-xl'>Relier</span>

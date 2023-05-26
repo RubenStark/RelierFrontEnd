@@ -1,44 +1,39 @@
 import Grid from "../components/Profile/grid"
 import Post from "../components/Post/post"
-import { useState } from "react"
+import { use, useEffect, useState } from "react"
 import Navbar from "../components/navbar"
 import classNames from 'classnames';
-import { Button } from "@nextui-org/react";
 import { API_HOST } from "../utils/constants";
 import { getTokenApi } from "../api/auth";
+import { Modal, useModal, Button, Text, StyledButton } from "@nextui-org/react";
+import { IoHeartCircleOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 function Profile() {
     const [showGrid, setShowGrid] = useState(true)
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
     const [imgUrl, setImgUrl] = useState('');
+
+    const { setVisible, bindings } = useModal();
 
     const handleImageChange = (e) => {
         setImage(e.target.files[0]);
-
-        //wait for image to be loaded
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setImgUrl(reader.result);
-            }
-        }
-        reader.readAsDataURL(e.target.files[0]);
-
-        setTimeout(() => {
-            handleSubmit(e);
-        }, 2500);
-        
+        setImgUrl(URL.createObjectURL(e.target.files[0]));
     };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
     
+    const handleSubmit = () => {
+
+        if (!image) {
+            console.error('Image is not loaded yet.');
+            return;
+        }
+
         const url = `${API_HOST}/add-avatar`;
         const formData = new FormData();
         formData.append('file', image);
-    
+
         const token = getTokenApi();
-    
+
         fetch(url, {
             method: 'POST',
             body: formData,
@@ -50,11 +45,17 @@ function Profile() {
             .then((data) => {
                 console.log(data);
                 console.error(data.message);
+                toast.success("Imagen subida correctamente");
             })
             .catch((error) => {
                 console.error('Error while uploading image:', error);
+                toast.error("Error al subir la imagen");
             });
-    }
+
+        setImage(null);
+        setVisible(false);
+
+    };
 
 
     const Posts = classNames({
@@ -92,22 +93,59 @@ function Profile() {
                     />
 
                     {/* ProfileImg */}
-                    <label htmlFor="imageInput">
-                        <img
-                            className="w-52 h-52 rounded-full mx-auto border-4 border-white relative -top-28 cursor-pointer hover:brightness-50"
-                            src={imgUrl || 'https://www.w3schools.com/howto/img_avatar.png'}
-                            alt="Avatar"
-                        />
 
-                        <input
-                            name="avatar"
-                            id="imageInput"
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={handleImageChange}
-                        />
-                    </label>
+                    <img
+                        className="w-52 h-52 rounded-full mx-auto border-4 border-white relative -top-28 cursor-pointer hover:brightness-50"
+                        src={imgUrl || 'https://www.w3schools.com/howto/img_avatar.png'}
+                        alt="Avatar"
+                        onClick={() => setVisible(true)}
+                    />
+
+
+
+                    <Modal
+                        scroll
+                        width="600px"
+                        aria-labelledby="modal-title"
+                        aria-describedby="modal-description"
+                        {...bindings}
+                    >
+                        <Modal.Header>
+                            <Text id="modal-title" size={18}>
+                                Actualizar foto de perfil
+                            </Text>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div id="modal-description">
+                                <div className="w-full flex justify-center items-center my-10">
+                                    <label htmlFor="imageInput">
+                                        <img
+                                            className="w-52 rounded-full border-4 border-white cursor-pointer hover:brightness-50"
+                                            src={imgUrl || 'https://www.w3schools.com/howto/img_avatar.png'}
+                                            alt="Avatar"
+                                        />
+                                        <input
+                                            name="avatar"
+                                            id="imageInput"
+                                            type="file"
+                                            accept="image/*"
+                                            className="hidden"
+                                            onChange={handleImageChange}
+                                        />
+                                    </label>
+                                </div>
+                            </div>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <StyledButton auto flat color="error" onClick={() => setVisible(false)}>
+                                Close
+                            </StyledButton>
+                            {
+                                image ? <StyledButton auto onClick={handleSubmit}>Change Image</StyledButton> :
+                                    <Button disabled>Change image</Button>
+                            }
+                        </Modal.Footer>
+                    </Modal>
 
 
 
@@ -129,10 +167,224 @@ function Profile() {
                     }
 
                 </div>
-            </div>
+            </div >
         </>
     )
 
 }
 
 export default Profile
+
+function ImageModal() {
+    return (
+        <Modal
+            scroll
+            width="600px"
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
+            {...bindings}
+        >
+            <Modal.Header>
+                <Text id="modal-title" size={18}>
+                    Modal with a lot of content
+                </Text>
+            </Modal.Header>
+            <Modal.Body>
+                <Text id="modal-description">
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Cras mattis consectetur purus sit amet
+                    fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+                    quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                    Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+                    Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+                    dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+                    ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+                    magna, vel scelerisque nisl consectetur et. Cras mattis consectetur
+                    purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac,
+                    vestibulum at eros. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et.
+                </Text>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button auto flat color="error" onPress={() => setVisible(false)}>
+                    Close
+                </Button>
+                <Button auto onPress={() => setVisible(false)}>
+                    Agree
+                </Button>
+            </Modal.Footer>
+        </Modal>
+    )
+}
