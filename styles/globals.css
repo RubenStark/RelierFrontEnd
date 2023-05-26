@@ -37,3 +37,6 @@ body{
 .height-minus-navbar{
     height: calc(100vh - 6rem);
 }
+.min-height-minus-navbar{
+    min-height: calc(100vh - 6rem);
+}

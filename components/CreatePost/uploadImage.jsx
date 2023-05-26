@@ -1,23 +1,8 @@
 import { useEffect, useState } from "react";
 import style from "../../styles/Create.module.css"
+import useImageUploader from "../../hooks/useImageUpload";
 
-function UploadImage() {
-
-    const [images, setImages] = useState();
-    const [image, setImage] = useState();
-
-    const handleChange = (e) => {
-        setImages(Array.from(event.target.files))
-        setImage(URL.createObjectURL(e.target.files[0]))
-    };
-
-    const handleImageClick = (e) => {
-        setImage(e.target.src)
-    };
-
-    useEffect(() => {
-        console.log(images)
-    }, [images]);
+function UploadImage({ images, imageUrl, handleChange }) {
 
     return (
         <>
@@ -33,14 +18,14 @@ function UploadImage() {
                     }
 
                     {
-                        image && <img src={image} alt="image" />
+                        imageUrl && <img src={imageUrl} alt="image" />
                     }
 
                     <input id="file-upload" type="file" accept="image/*" required className="hidden" onChange={handleChange} multiple />
                 </div>
 
                 {/* Carrusel */}
-                <div className="w-full row-span-1 flex justify-center gap-1 bg-cover">
+                {/* <div className="w-full row-span-1 flex justify-center gap-1 bg-cover">
 
                     {images?.map((image) => (
                         <img
@@ -52,7 +37,7 @@ function UploadImage() {
                         />
                     ))}
 
-                </div>
+                </div> */}
             </div>
         </>
     )
