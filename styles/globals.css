@@ -40,3 +40,18 @@ body{
 .min-height-minus-navbar{
     min-height: calc(100vh - 6rem);
 }
+
+.loading{
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
