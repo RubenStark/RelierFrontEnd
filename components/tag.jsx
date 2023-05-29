@@ -1,7 +1,9 @@
-function Tag ({tag}) {
+import styles from '../styles/tags.module.css'
+import classNames from 'classnames';
 
+function Tag({ tag }) {
     return (
-        <div className="bg-blue-400 px-5 rounded-xl text-white font-medium">{tag}</div>
+        <div className={styles.tag}>{tag}</div>
     )
 
 }
