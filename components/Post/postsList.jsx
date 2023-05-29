@@ -1,45 +1,26 @@
 import { useQuery } from "react-query";
 import { fetchPosts } from "../../helpers/fetchPosts";
+import SkeletonPost from "./skeletonPost";
 import Post from "./post";
+import { toast } from "react-toastify";
 
 export default function PostsList() {
-    const { data, isLoading, error } = useQuery('posts', fetchPosts);
-  
-    if (isLoading) {
-      return <div>Loading...</div>;
-    }
-  
-    if (error) {
-      return <div>Error: {error.message}</div>;
-    }
-  
-    return (
-      <>
-        {data.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
-      </>
-    );
+  const { data, isLoading, error } = useQuery('posts', fetchPosts);
+
+  if (isLoading) {
+    return <SkeletonPost />;
   }
 
-function SkeletonPost() {
-    return (
-        <div className="w-full flex justify-center mt-10">
-            <div className="max-w-2xl bg-white rounded-lg">
-                {/* Header */}
-                <span>isLoading</span>
-            </div>
-        </div>
-    )
-}
+  if (error) {
+    toast.error("Error al cargar los posts");
+    return null;
+  }
 
-function IsError({ error }) {
-    return (
-        <div className="w-full flex justify-center mt-10">
-            <div className="max-w-2xl bg-white rounded-lg">
-                {/* Header */}
-                <span>{error}</span>
-            </div>
-        </div>
-    )
+  return (
+    <>
+      {data.map((post) => (
+        <Post key={post.id} post={post} />
+      ))}
+    </>
+  );
 }
