@@ -1,22 +1,16 @@
-import { Avatar } from '@nextui-org/react';
+import { Avatar } from "@nextui-org/react";
 
 export default function AvatarListTile({ src, username, name, children }) {
-    return (
-
-        <>
-            <div className="flex items-center w-full">
-                <Avatar
-                    src={src}
-                    size="lg"
-                />
-                <div className="flex flex-col ml-5 justify-start">
-                    <span className="font-bold self-start">{username}</span>
-                    <span className="text-sm self-start">{name}</span>
-                </div>
-            </div>
-
-            {children}
-        </>
-
-    )
+  return (
+    <>
+      <div className="flex items-center w-full">
+        <Avatar src={src} size="lg" />
+        <div className="flex flex-col ml-5 justify-start">
+          <span className="font-bold self-start">{username}</span>
+          <span className="text-sm self-start">{name}</span>
+        </div>
+        <div className="ml-auto block">{children}</div>
+      </div>
+    </>
+  );
 }
