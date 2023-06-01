@@ -4,14 +4,14 @@ export default function AvatarListTile({ src, username, name, children }) {
     return (
 
         <>
-            <div className="flex items-center justify-start w-full">
+            <div className="flex items-center w-full">
                 <Avatar
                     src={src}
                     size="lg"
                 />
-                <div className="flex flex-col ml-5">
-                    <span className="font-bold">{username}</span>
-                    <span className="text-sm">{name}</span>
+                <div className="flex flex-col ml-5 justify-start">
+                    <span className="font-bold self-start">{username}</span>
+                    <span className="text-sm self-start">{name}</span>
                 </div>
             </div>
 

@@ -1,5 +1,6 @@
 import { API_HOST } from "../../utils/constants";
 import Avatar from "../avatar";
+import AddComment from "./addComment";
 import Buttons from "./buttons";
 import Comments from "./comments";
 
@@ -26,7 +27,18 @@ function Post({ post }) {
         }
       }
 
-      const avatar_url = API_HOST + "/media/profile_pics/" + post.User.Avatar
+    //   const avatar_url = API_HOST + "/media/profile_pics/" + post.User.Avatar
+      const avatar_url = "https://www.w3schools.com/howto/img_avatar.png"
+
+    // if there is no avatar then use a default one
+    var final_post = post || {
+        User: {
+            name: "John Doe",
+            Avatar: "default.png"
+        },
+        caption: "This is a caption",
+        CreatedAt: "2021-08-01T00:00:00.000Z"
+    }
 
     return (
         <div className="w-full flex justify-center mt-10">
@@ -36,8 +48,8 @@ function Post({ post }) {
                     <div className="flex items-center">
                         <Avatar url={avatar_url} />
                         <div className="flex flex-col ml-4">
-                            <span className="font-semibold">{post.User.name}</span>
-                            <span className="text-xs text-gray-500">{timeSince(post.CreatedAt)}</span>
+                            <span className="font-semibold">{final_post.User.name}</span>
+                            <span className="text-xs text-gray-500">{timeSince(final_post.CreatedAt)}</span>
                         </div>
                     </div>
                     <div className="flex items-center">
@@ -66,22 +78,12 @@ function Post({ post }) {
                 />
                 {/* Caption */}
                 <div className="p-5">
-                    <span className="font-semibold">{post.caption}</span>
+                    <span className="font-semibold">{final_post.caption}</span>
                 </div>
                 <Buttons />
                 <Comments />
                 {/* Add a comment */}
-                <div className="flex items-center justify-between px-5">
-                    <div className="flex items-center">
-                        <Avatar url='https://www.w3schools.com/howto/img_avatar.png' />
-                    </div>
-                    <input type="text"
-                    placeholder="Add a comment..." 
-                    className="w-full p-2 ml-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500" />
-                    <button className="ml-4">
-                        <span className="text-blue-500 font-semibold">Post</span>
-                    </button>
-                </div>
+                <AddComment />
             </div>
         </div>
     )

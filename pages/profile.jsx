@@ -1,12 +1,18 @@
-import Grid from "../components/Profile/grid"
 import Post from "../components/Post/post"
-import { useState } from "react"
+import GridImage from "../components/gridImage"
+import { use, useEffect, useState } from "react"
 import classNames from 'classnames';
 import { API_HOST } from "../utils/constants";
 import { getTokenApi } from "../api/auth";
-import { Modal, useModal, Text, StyledButton, Button } from "@nextui-org/react";
+import { Modal, useModal, Text, StyledButton, Button, Input, Card, Avatar, Image } from "@nextui-org/react";
 import { toast } from "react-toastify";
 import Tag from "../components/tag";
+import AvatarListTile from "../components/avatarListTile";
+import CustomDivider from "../components/divider";
+import Buttons from "../components/Post/buttons";
+import Comments from "../components/Post/comments";
+import AddComment from "../components/Post/addComment";
+import Comment from "../components/Post/comment";
 
 function Profile() {
     const [showGrid, setShowGrid] = useState(true)
@@ -123,21 +129,6 @@ function Profile() {
                         </Modal.Footer>
                     </Modal>
 
-
-
-
-                    {/* <div className="w-full h-10 flex -mt-10">
-                          <button
-                            onClick={() => setShowGrid(true)}
-                            className="w-1/2 flex justify-center items-center border border-b-gray-600 mx-5">
-                            <span className={Images}>Images</span>
-                        </button>
-                        <button
-                            onClick={() => setShowGrid(false)}
-                            className="w-1/2 flex justify-center items-center border border-b-gray-600 mx-5">
-                            <span className={Posts}>Posts</span>
-                        </button>
-                    </div> */}
                     <InterestsOfTheUser />
                     <SelectButton setShowGrid={setShowGrid} showGrid={showGrid} />
 
@@ -203,4 +194,81 @@ function InterestsOfTheUser() {
     )
 }
 
+function Grid() {
+    const [visible, setVisible] = useState(false);
+
+    return (
+        <div className="grid grid-cols-3 gap-1 md:gap-4">
+            <GridImage
+                onClick={() => setVisible(true)}
+                url="https://www.xtrafondos.com/descargar.php?id=5846&resolucion=2560x1440" />
+            <GridImage
+                url="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" />
+            <GridImage
+                url="https://thumbs.dreamstime.com/b/paisajes-de-yosemite-46208063.jpg" />
+            <GridImage
+                url="https://www.xtrafondos.com/descargar.php?id=5846&resolucion=2560x1440" />
+            <GridImage
+                url="https://cdn.pixabay.com/photo/2016/02/10/21/59/landscape-1192669__340.jpg" />
+            <GridImage
+                url="https://www.xtrafondos.com/descargar.php?id=5846&resolucion=2560x1440" />
+            <GridImage
+                url="https://www.xtrafondos.com/descargar.php?id=5846&resolucion=2560x1440" />
+
+            <Modal
+            id="modal"
+                noPadding
+                blur
+                aria-labelledby="modal-title"
+                open={visible}
+                onClose={() => setVisible(false)}
+                width="80%"
+            >
+                <div className="w-full height-minus-navbar grid grid-cols-3 bg-gray-100">
+                    <Image
+                        src="https://images.unsplash.com/photo-1685371863623-effd71822cf2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+                        alt="post"
+                        className="w-full object-cover col-span-2"
+                    />
+                    
+                    <div className="bg-white height-minus-navbar overflow-x-scroll">
+                    <div className="mx-5 my-2">
+                            <AvatarListTile
+                                src={'https://www.w3schools.com/howto/img_avatar.png'}
+                                username={'Juan'}
+                                name={'Juan_777'}
+                            />
+                        </div>
+                        <CustomDivider />
+
+                        <div className="m-5">
+                            <span className="font-normal">Hello this is Ruben Skays from Poisoned Lips</span>
+                        </div>
+                        
+                        <CustomDivider />
+                        <div className="flex flex-wrap mx-5 my-2">
+                            <Tag tag={'Flower'} />
+                            <Tag tag={'nature'} />
+                            <Tag tag={'yewllow'} />
+                            <Tag tag={'cold play'} />
+                            <Tag tag={'bring me the '} />
+
+                        </div>
+                            <Comments />
+                    </div>
+                    
+                </div>
+            </Modal>
+
+        </div>
+    );
+}
+
 export default Profile
+
+
+// <div className="bg-white">
+                        
+
+//                     </div>
+                    
