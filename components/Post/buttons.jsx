@@ -12,15 +12,15 @@ function Buttons() {
 
         <div className="flex justify-around px-5 pt-5">
             
-            <Button bordered flat color="primary">
+            <Button bordered flat auto color="primary">
                 Like
             </Button>
 
-            <Button bordered flat color="warning">
+            <Button bordered flat auto color="warning">
                 Laugh
             </Button>
 
-            <Button bordered flat color="error">
+            <Button bordered flat auto color="error">
                 Love
             </Button>
 
