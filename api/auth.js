@@ -1,5 +1,6 @@
 import { API_HOST, TOKEN } from "../utils/constants";
 import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
 
 export function signUpApi(user) {
 
@@ -84,8 +85,38 @@ function isExpired(token) {
   const expire = exp * 1000;
   const timeout = expire - Date.now();
 
-  if (timeout < 0) {
-    return true;
+  return timeout < 0;
+}
+
+export function updateProfileImage({ image }) {
+
+  if (!image) {
+    console.error("Image is not loaded yet.");
+    return;
   }
-  return false;
+
+  const url = `${API_HOST}/add-avatar`;
+  const formData = new FormData();
+  formData.append("file", image);
+
+  const token = getTokenApi();
+
+  fetch(url, {
+    method: "POST",
+    body: formData,
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      console.error(data.message);
+      toast.success("Imagen subida correctamente");
+    })
+    .catch((error) => {
+      console.error("Error while uploading image:", error);
+      toast.error("Error al subir la imagen");
+    });
+
 }

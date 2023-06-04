@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 export default function useImageUploader() {
-    const [images, setImages] = useState([]);
-    const [image, setImage] = useState([]);
+    const [images, setImages] = useState(null);
+    const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
   
     const handleImageChange = (e) => {
@@ -12,8 +12,8 @@ export default function useImageUploader() {
     };
 
     const clearImages = () => {
-      setImages([]);
-      setImage([]);
+      setImages(null);
+      setImage(null);
       setImageUrl(null);
     }
 

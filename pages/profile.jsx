@@ -2,10 +2,8 @@ import Post from "../components/Post/post";
 import GridImage from "../components/gridImage";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
-import { API_HOST } from "../utils/constants";
-import { getTokenApi } from "../api/auth";
+import { updateProfileImage } from "../api/auth";
 import { Modal, useModal, Text, StyledButton, Button } from "@nextui-org/react";
-import { toast } from "react-toastify";
 import Tag from "../components/tag";
 
 import { BigPost } from "../components/Post/bigPost";
@@ -14,7 +12,8 @@ import useImageUploader from "../hooks/useImageUpload";
 function Profile() {
   const [showGrid, setShowGrid] = useState(true);
   const { setVisible, bindings } = useModal();
-  const { image, imageUrl, clearImages, handleImageChange } = useImageUploader();
+  const { image, imageUrl, clearImages, handleImageChange } =
+    useImageUploader();
 
   const handleClose = () => {
     setVisible(false);
@@ -26,33 +25,9 @@ function Profile() {
       console.error("Image is not loaded yet.");
       return;
     }
-
-    const url = `${API_HOST}/add-avatar`;
-    const formData = new FormData();
-    formData.append("file", image);
-
-    const token = getTokenApi();
-
-    fetch(url, {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: token,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        console.error(data.message);
-        toast.success("Imagen subida correctamente");
-      })
-      .catch((error) => {
-        console.error("Error while uploading image:", error);
-        toast.error("Error al subir la imagen");
-      });
-
-    setImage(null);
+    updateProfileImage(image);
     setVisible(false);
+    clearImages();
   };
 
   return (
