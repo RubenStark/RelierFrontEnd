@@ -23,17 +23,10 @@ export default function Lateral() {
 
 function AvatarSide() {
 
-    const user = useAuth();
-
-    if (user) {
-        // print each key-value pair from user object
-        Object.entries(user).forEach(([key, value]) => {
-            console.log(`${key}: ${value}`);
-        });
-    }
-
-    if (!user) {
-        return null;
+    const user = useAuth() ? user : {
+        name: "Not logged",
+        username: "Not logged",
+        avatar: null
     }
 
 
@@ -41,7 +34,7 @@ function AvatarSide() {
 
         <div className="h-52 mx-5">
             <div className="flex justify-center">
-                <Link href="profile">
+                <Link href={user.avatar ? "profile" : "login"}>
                     <img
                         src={
                             user.avatar ?
