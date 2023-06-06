@@ -1,31 +1,35 @@
 import { useEffect, useState } from "react";
-import style from "../../styles/Create.module.css"
+import style from "../../styles/Create.module.css";
 import useImageUploader from "../../hooks/useImageUpload";
 
-function UploadImage({ images, imageUrl, handleChange }) {
+function UploadImage({ image, imageUrl, clearImages, handleImageChange }) {
+  
 
-    return (
-        <>
-            <div className="h-full w-full bg-white grid grid-rows-6 xl:ml-52">
+  return (
+    <>
+      <div className="h-full w-full bg-white grid grid-rows-6 xl:ml-52">
+        <div className="row-span-5 flex justify-center items-center">
+          {!image && (
+            <label htmlFor="file-upload">
+              <div className={style.btn}>Upload a Photo</div>
+            </label>
+          )}
 
-                <div className="row-span-5 flex justify-center items-center">
+          {imageUrl && <img src={imageUrl} alt="image" className="w-full max-w-xl md:max-w-4xl"/>}
 
-                    {
-                        !images &&
-                        <label htmlFor="file-upload">
-                            <div className={style.btn}>Upload a Photo</div>
-                        </label>
-                    }
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            required
+            className="hidden"
+            onChange={handleImageChange}
+            multiple
+          />
+        </div>
 
-                    {
-                        imageUrl && <img src={imageUrl} alt="image" />
-                    }
-
-                    <input id="file-upload" type="file" accept="image/*" required className="hidden" onChange={handleChange} multiple />
-                </div>
-
-                {/* Carrusel */}
-                {/* <div className="w-full row-span-1 flex justify-center gap-1 bg-cover">
+        {/* Carrusel */}
+        {/* <div className="w-full row-span-1 flex justify-center gap-1 bg-cover">
 
                     {images?.map((image) => (
                         <img
@@ -38,10 +42,9 @@ function UploadImage({ images, imageUrl, handleChange }) {
                     ))}
 
                 </div> */}
-            </div>
-        </>
-    )
-
+      </div>
+    </>
+  );
 }
 
-export default UploadImage
+export default UploadImage;

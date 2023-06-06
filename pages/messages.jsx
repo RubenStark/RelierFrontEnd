@@ -226,7 +226,7 @@ function Messages() {
     if (isMobile) {
         return (
             <>
-                <MessagesNavbar />
+                {/* <MessagesNavbar /> */}
                 <MobileMessages />
                 <BottomBar />
             </>

@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import Tag from "../tag";
 import { Textarea } from "@nextui-org/react";
 
-function TagsPart() {
+function TagsPart({setParentTags}) {
 
     const [tags, setTags] = useState([]);
 
     const handleChange = (e) => {
         // if the user press enter key then add the tag
-        if (e.key === "Enter") {
+        // if the e is from the textarea named tags then add the tag
+        if (e.target.name === "tags" && e.key === "Enter") {
             e.preventDefault();
             setTags([...tags, e.target.value]);
+            setParentTags([...tags, e.target.value]);
             e.target.value = "";
         }
 
@@ -29,20 +31,20 @@ function TagsPart() {
                 placeholder="Añade tus tags" onChange={handleChange} /> */}
 
             <Textarea
+                name="tags"
                 fullWidth
                 minRows={5}
                 maxRows={20}
                 underlined
                 color="primary"
                 labelPlaceholder="Añade tus tags"
-                onChange={handleChange}
             />
 
             {/* Tags */}
             <div className="flex flex-wrap gap-1">
                 {
-                    tags.map((tag) => (
-                        <Tag tag={tag} />
+                    tags.map((tag, index) => (
+                        <Tag key={index} tag={tag}/>
                     ))
                 }
             </div>

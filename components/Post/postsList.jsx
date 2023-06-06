@@ -3,9 +3,14 @@ import { fetchPosts } from "../../helpers/fetchPosts";
 import SkeletonPost from "./skeletonPost";
 import Post from "./post";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export default function PostsList() {
-  const { data, isLoading, error } = useQuery('posts', fetchPosts);
+  const { data, isLoading, error } = useQuery("posts", fetchPosts);
+
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
 
   if (isLoading) {
     return <SkeletonPost />;

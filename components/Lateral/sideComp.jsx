@@ -3,68 +3,12 @@ import { IoCreateOutline } from 'react-icons/io5'
 import { BiMessageRounded } from 'react-icons/bi'
 import { BsPersonCheck } from "react-icons/bs"
 import Link from 'next/link'
+import icons from "../../utils/routes";
 
 export default function SideComp() {
 
 
-    const sideIcons = [
-        {
-            icon: <AiOutlineHome size={20} />,
-            mobileIcon: <AiOutlineHome size={30} />,
-            text: 'Home',
-            count: 1,
-            link: '/'
-        },
-        {
-            icon: <AiOutlineSearch size={20} />,
-            mobileIcon: <AiOutlineSearch size={30} />,
-            text: 'Search',
-            count: 0,
-            link: 'search'
-        },
-        {
-            icon: <BsPersonCheck size={20} />,
-            mobileIcon: <BsPersonCheck size={30} />,
-            text: 'Meet',
-            count: 0,
-            link: 'meet'
-        },
-        {
-            icon: <IoCreateOutline size={20} />,
-            mobileIcon: <IoCreateOutline size={30} />,
-            text: 'Create',
-            count: 0,
-            link: 'createPost'
-        },
-        {
-            icon: <AiOutlineHeart size={20} />,
-            mobileIcon: <AiOutlineHeart size={30} />,
-            text: 'Notifications',
-            count: 10,
-            link: 'notifications'
-        },
-        {
-            icon: <BiMessageRounded size={20} />,
-            mobileIcon: <BiMessageRounded size={30} />,
-            text: 'Messages',
-            count: 5,
-            link: 'messages'
-        },
-        {
-            icon: <AiOutlineVideoCameraAdd size={20} />,
-            mobileIcon: <AiOutlineVideoCameraAdd size={30} />,
-            text: 'VideoChat',
-            count: 1,
-            link: 'videochat'
-        },
-        {
-            icon: <AiOutlineCheckSquare size={20} />,
-            mobileIcon: <AiOutlineCheckSquare size={30} />,
-            text: 'Liked',
-            count: 0,
-            link: 'liked'
-        },
-    ]
+    const sideIcons = icons
 
 
     return (
@@ -123,7 +67,7 @@ function MobileSideComp({ sideIcons }) {
                 sideIcons.map((item, index) => {
                     return (
                         <Link href={item.link} key={index}>
-                            {item.mobileIcon}
+                            {item.collapsedIcon}
                         </Link>
                     )
                 })

@@ -101,8 +101,8 @@ const FollowingProvider = ({ children }) => {
   );
 
   return (
-    <FollowingContext.Provider value={contextValue}>
+    <FollowingForYouContext.Provider value={contextValue}>
       {children}
-    </FollowingContext.Provider>
+    </FollowingForYouContext.Provider>
   );
 };
