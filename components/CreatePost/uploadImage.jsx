@@ -1,21 +1,23 @@
-import { useEffect, useState } from "react";
 import style from "../../styles/Create.module.css";
-import useImageUploader from "../../hooks/useImageUpload";
 
 function UploadImage({ image, imageUrl, clearImages, handleImageChange }) {
-  
-
   return (
     <>
-      <div className="h-full w-full bg-white grid grid-rows-6 xl:ml-52">
-        <div className="row-span-5 flex justify-center items-center">
+      <div className="h-full w-full grid grid-rows-6 xl:ml-52">
+        <div className="row-span-5 flex justify-center items-center min-h-50">
           {!image && (
             <label htmlFor="file-upload">
               <div className={style.btn}>Upload a Photo</div>
             </label>
           )}
 
-          {imageUrl && <img src={imageUrl} alt="image" className="w-full max-w-xl md:max-w-4xl"/>}
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt="image"
+              className="w-full max-w-xl md:max-w-4xl"
+            />
+          )}
 
           <input
             id="file-upload"

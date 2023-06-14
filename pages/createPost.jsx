@@ -33,7 +33,7 @@ function CreatePostMobile() {
 
   return (
     <>
-      <div className="w-screen height-minus-navbar mb-20">
+      <div className="w-screen min-height-minus-navbar mb-20">
         <div className="h-full w-full flex flex-col lg:px-20 justify-center">
           <div className="flex items-center p-5 bg-white">
             <Avatar url="https://www.w3schools.com/howto/img_avatar.png" />
@@ -42,7 +42,7 @@ function CreatePostMobile() {
               <Button
                 flat
                 size="sm"
-                className="bg-blue-200"
+                className={readyToPublish ? "bg-blue-200" : "bg-gray-300"}
                 disabled={!readyToPublish}
               >
                 Publicar
