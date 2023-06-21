@@ -6,10 +6,14 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 
 export default function PostsList() {
-  const { data, isLoading, error } = useQuery("posts", fetchPosts);
+  const { data, isLoading, error } = useQuery("posts", fetchPosts, {
+    retry: 3, // Intentar 3 veces en caso de error
+  });
 
   useEffect(() => {
-    console.log(error);
+    if (error) {
+      toast.error("Error al cargar los posts");
+    }
   }, [error]);
 
   if (isLoading) {
@@ -17,8 +21,7 @@ export default function PostsList() {
   }
 
   if (error) {
-    toast.error("Error al cargar los posts");
-    return null;
+    return null; // Evitar renderizar el componente nuevamente si hay un error
   }
 
   return (

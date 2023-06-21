@@ -76,6 +76,10 @@ function CreatePostMobile() {
 }
 
 function CreatePostPc() {
+
+  const [parentTags, setParentTags] = useState([]);
+
+
   return (
     <>
       <div className="w-screen height-minus-navbar">
@@ -92,7 +96,7 @@ function CreatePostPc() {
               className="w-full h-1/2 p-5 text-gray-900 border border-gray-300 rounded-lg bg-white sm:text-xs focus:ring-blue-500 focus:border-blue-500"
               placeholder="What's on your mind?"
             />
-            <TagsPart />
+            <TagsPart setParentTags={setParentTags}/>
           </div>
         </div>
       </div>

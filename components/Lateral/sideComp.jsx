@@ -4,6 +4,7 @@ import { BiMessageRounded } from 'react-icons/bi'
 import { BsPersonCheck } from "react-icons/bs"
 import Link from 'next/link'
 import icons from "../../utils/routes";
+import { Card } from '@nextui-org/react'
 
 export default function SideComp() {
 
@@ -37,6 +38,8 @@ function ComputerSideComp({ sideIcons }) {
                 sideIcons.map((item, index) => {
                     return (
                         <Link href={item.link} key={index}>
+                            <Card isPressable variant='flat' isHoverable className='bg-white' 
+                            css={{ "border-style": "none", "border-radius": "0px"}}>
                             <div className="grid grid-cols-7 hover:bg-gray-300 items-center gap-5 py-2 transition ease-in-out delay-75">
                                 <div className="col-span-1"></div>
                                 <div className="col-span-1">
@@ -49,6 +52,7 @@ function ComputerSideComp({ sideIcons }) {
                                     {item.count > 0 && <div className="bg-blue-500 rounded-full w-5 h-5 text-white text-xs flex justify-center items-center">{item.count}</div>}
                                 </div>
                             </div>
+                            </Card>
                         </Link>
                     )
                 })
