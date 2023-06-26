@@ -7,6 +7,11 @@ import AvatarListTile from "../components/avatarListTile";
 export default function Story() {
     const router = useRouter();
     const [currentStory, setCurrentStory] = useState(null);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 768);
+    }, []);
 
     const stories = [
         {
@@ -59,44 +64,81 @@ export default function Story() {
         setCurrentStory(stories[0]);
     }, []);
 
+    if (!isMobile) {
+        return (
+            <div className="bg-zinc-900 w-screen h-screen">
+                <div className="row justify-center w-full h-full">
+                    <div className="flex items-center mx-10">
+                        <button
+                            className="bg-white rounded-full p-1">
+                            <BsFillArrowLeftCircleFill size={20} onClick={PrevStory} />
+                        </button>
+                    </div>
+                    {currentStory && (
+                        <div className="relative" style={{ height: "80%" }}>
+                            <img
+                                className="object-cover"
+                                src={currentStory.image}
+                                style={{ height: "100%" }}
+                            />
+                            <div className="absolute top-0 left-0 w-full m-2">
+                                <AvatarListTile
+                                    src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                                    name={"Ruben Skays"}
+                                    username={"ruben_skays_777"}
+                                    white={true}
+                                />
+                            </div>
+                        </div>
+                    )}
+                    <div
+                        className="absolute top-0 right-0 m-5 text-white text-4xl cursor-pointer"
+                        onClick={() => router.push("/")}
+                    >
+                        x
+                    </div>
+                    <div className="flex items-center mx-10">
+                        <button className="bg-white rounded-full p-1">
+                            <BsFillArrowRightCircleFill size={20} onClick={NextStory} />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="bg-zinc-900 w-screen h-screen">
-            <div className="row justify-center w-full h-full">
-                <div className="flex items-center mx-10">
-                    <button
-                        className="bg-white rounded-full p-1">
-                        <BsFillArrowLeftCircleFill size={20} onClick={PrevStory} />
-                    </button>
-                </div>
+            <div className="realtive w-full h-full flex items-center">
                 {currentStory && (
-                    <div className="relative" style={{ height: "80%" }}>
-                        <img
-                            className="object-cover"
-                            src={currentStory.image}
-                            style={{ height: "100%" }}
-                        />
-                        <div className="absolute top-0 left-0 w-full m-2">
-                            <AvatarListTile
-                                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                                name={"Ruben Skays"}
-                                username={"ruben_skays_777"}
-                                white={true}
-                            />
-                        </div>
-                    </div>
+                    <img
+                        className="object-cover"
+                        src={currentStory.image}
+                        style={{ width: "100%" }}
+                    />
                 )}
+                <div className="absolute top-0 left-0 w-full p-2">
+                    <AvatarListTile
+                        src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                        name={"Ruben Skays"}
+                        username={"ruben_skays_777"}
+                        white={true}
+                    />
+                </div>
                 <div
-                    className="absolute top-0 right-0 m-5 text-white text-4xl cursor-pointer"
+                    className="absolute top-0 right-0 px-2 text-white text-4xl cursor-pointer"
                     onClick={() => router.push("/")}
                 >
                     x
                 </div>
-                <div className="flex items-center mx-10">
-                    <button className="bg-white rounded-full p-1">
-                        <BsFillArrowRightCircleFill size={20} onClick={NextStory} />
-                    </button>
-                </div>
+
+                <div className="absolute h-screen w-1/2" onClick={PrevStory}></div>
+                <div className="absolute h-screen w-1/2 right-0" onClick={NextStory}></div>
+
             </div>
         </div>
-    );
+
+    )
 }
+
+
