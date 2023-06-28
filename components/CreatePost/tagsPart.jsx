@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Tag from "../tag";
 import { Textarea } from "@nextui-org/react";
 import useTags from "../../hooks/useTags";
 
-function TagsPart() {
+function TagsPart({ setParentTags }) {
   // * Pasar setParentTags como prop
   const { tags } = useTags();
+
+  useEffect(() => {
+    setParentTags(tags);
+  }, [tags]);
 
   return (
     <>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import SideComp from "./sideComp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // import React, { useContext } from 'react';
 // import { AuthContext } from "../../utils/context";
@@ -23,10 +23,14 @@ export default function Lateral() {
 
 function AvatarSide() {
 
-    const user = useAuth() ? user : {
-        name: "Not logged",
-        username: "Not logged",
-        avatar: null
+    var user = useAuth();
+
+    if (!user) {
+        user = {
+            name: "Not logged",
+            username: "Not logged",
+            avatar: null
+        }
     }
 
 

@@ -1,11 +1,11 @@
 import { useState, useCallback, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { API_HOST } from '../utils/constants';
 
 const useSearch = () => {
     const [search, setSearch] = useState("");
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
 
     const fetchData = useCallback(async () => {
         if (search.length === 0) {
@@ -14,7 +14,7 @@ const useSearch = () => {
         }
         setIsLoading(true);
         try {
-            const response = await fetch(`http://127.0.0.1:8000/search?username=${search}`);
+            const response = await fetch(`${API_HOST}${search}`);
             const data = await response.json();
             setData(data);
         } catch (error) {
