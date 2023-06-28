@@ -1,10 +1,13 @@
 import { Card, Input } from "@nextui-org/react";
 import AvatarListTile from "../components/avatarListTile";
 import useSearch from "../hooks/useSearch";
+import { toast } from "react-toastify";
 
 export default function Search() {
 
     const { setSearch, data, isLoading } = useSearch();
+
+    
 
 
     return (
