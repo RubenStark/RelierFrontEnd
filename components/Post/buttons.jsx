@@ -1,32 +1,72 @@
-import { Button } from "@nextui-org/react";
+import { useState } from "react";
+import JSConfetti from "js-confetti";
+import {
+  FcComments,
+  FcLike,
+  FcLikePlaceholder,
+  FcOk,
+  FcPlus,
+} from "react-icons/fc";
+
 function Buttons() {
+  const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(false);
 
+  const handleClick = () => {
+    setLiked(!liked);
+    if (!liked) {
+      const jsConfetti = new JSConfetti();
+      jsConfetti.addConfetti({
+        confettiRadius: 3,
+        confettiNumber: 50,
+        emojis: [
+          "💜",
+          "🧡",
+          "🖤",
+          "💚",
+          "🤎",
+          "💛",
+          "🤍",
+          "💙",
+          "❤️‍🔥",
+          "💓",
+          "💗",
+          "💖",
+          "💕",
+          "💘",
+          "💞",
+          "💝",
+        ],
+        emojiSize: 30,
+        // confettiColors: [
+        //   "#ff0a54",
+        //   "#ff477e",
+        //   "#ff7096",
+        //   "#ff85a1",
+        //   "#fbb1bd",
+        //   "#f9bec7",
+        // ],
+      });
+      //   jsConfetti.addConfetti();
+    }
+  };
 
-    return (
+  return (
+    <div className="flex justify-around p-5">
+      {liked ? (
+        <FcLike size={30} onClick={handleClick} />
+      ) : (
+        <FcLikePlaceholder size={30} onClick={handleClick} />
+      )}
 
-        // <div className="flex justify-between px-5 pt-5">
-        //     <Button like={true} />
-        //     <Button laugh={true} />
-        //     <Button love={true} />
-        // </div>
-
-        <div className="flex justify-around px-5 pt-5">
-            
-            <Button bordered flat auto color="primary">
-                Like
-            </Button>
-
-            <Button bordered flat auto color="warning">
-                Laugh
-            </Button>
-
-            <Button bordered flat auto color="error">
-                Love
-            </Button>
-
-        </div>
-    )
-
+      <FcComments size={30} />
+      {saved ? (
+        <FcOk size={30} onClick={() => setSaved(!saved)} />
+      ) : (
+        <FcPlus size={30} onClick={() => setSaved(!saved)} />
+      )}
+    </div>
+  );
 }
 
-export default Buttons
+export default Buttons;

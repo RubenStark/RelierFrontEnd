@@ -56,20 +56,20 @@ const icons = [
     count: 5,
     link: "messages",
   },
-  {
-    text: "VideoChat",
-    icon: <AiOutlineVideoCameraAdd size={size} />,
-    collapsedIcon: <AiOutlineVideoCameraAdd size={collpasedSize} />,
-    count: 1,
-    link: "videochat",
-  },
-  {
-    text: "Liked",
-    icon: <AiOutlineCheckSquare size={size} />,
-    collapsedIcon: <AiOutlineCheckSquare size={collpasedSize} />,
-    count: 0,
-    link: "liked",
-  },
+  // {
+  //   text: "VideoChat",
+  //   icon: <AiOutlineVideoCameraAdd size={size} />,
+  //   collapsedIcon: <AiOutlineVideoCameraAdd size={collpasedSize} />,
+  //   count: 1,
+  //   link: "videochat",
+  // },
+  // {
+  //   text: "Liked",
+  //   icon: <AiOutlineCheckSquare size={size} />,
+  //   collapsedIcon: <AiOutlineCheckSquare size={collpasedSize} />,
+  //   count: 0,
+  //   link: "liked",
+  // },
 ];
 
 

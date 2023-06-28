@@ -67,3 +67,24 @@ body{
     }
 }
 
+/* create a beautiful scrollbar */
+::-webkit-scrollbar {
+    height: 15px;
+    border-radius: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #c0c0c0;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #b6b6b6;
+}
