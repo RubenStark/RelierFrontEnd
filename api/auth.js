@@ -42,9 +42,11 @@ export function signInApi(user) {
 
   return fetch(url, params)
     .then(response => {
-      if (response.status >= 200 && response.status < 300) {
+      if (response.status == 200) {
+        console.log(response)
         return response.json();
       }
+      console.log(response)
       return { message: "Usuario o contraseña incorrectos" };
     })
     .then(result => {

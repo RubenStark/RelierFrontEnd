@@ -70,7 +70,7 @@ export default function updateProfile() {
             />
             <div className="h-5" />
 
-            <TagsPart />
+            {/* <TagsPart /> */}
 
             <div className="my-5 flex justify-center">
               <Button

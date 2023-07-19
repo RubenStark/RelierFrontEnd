@@ -3,13 +3,15 @@ import GridImage from "../components/gridImage";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { updateProfileImage } from "../api/auth";
-import { Modal, useModal, Text, StyledButton, Button } from "@nextui-org/react";
+import { Modal, useModal, Text, StyledButton, Button, Input, Textarea } from "@nextui-org/react";
 import Tag from "../components/tag";
 
 import { BigPost } from "../components/Post/bigPost";
 import useImageUploader from "../hooks/useImageUpload";
+import TagsPart from "../components/CreatePost/tagsPart";
 
 function Profile() {
+  const [parentTags, setParentTags] = useState([]);
   const [showGrid, setShowGrid] = useState(true);
   const { setVisible, bindings } = useModal();
   const { image, imageUrl, clearImages, handleImageChange } =
@@ -85,6 +87,64 @@ function Profile() {
                   </label>
                 </div>
               </div>
+              <div className="w-full flex justify-center">
+          <form
+            // onChange={onChange}
+            // onSubmit={onSubmit}
+            className="w-11/12 md:w-3/4"
+          >
+            <Input
+              clearable
+              underlined
+              fullWidth
+              color="primary"
+              size="lg"
+              placeholder="rubenskays777"
+              //   contentLeft={<BiMailSend fill="currentColor" />}
+              //   value={formData.username}
+              label="Username"
+              name="username"
+            />
+            <div className="h-5" />
+
+            <Input
+              clearable
+              underlined
+              fullWidth
+              color="primary"
+              size="lg"
+              placeholder="Ruben Skays"
+              //   contentLeft={<BiMailSend fill="currentColor" />}
+              //   value={formData.name}
+              label="Name"
+              name="name"
+            />
+            <div className="h-5" />
+
+            <Textarea
+              placeholder="I know im getting warm cuz i feel so cold"
+              label="Descripcion"
+              minRows={3}
+              underlined
+              width="100%"
+              color="primary"
+            />
+            <div className="h-5" />
+
+            <TagsPart setParentTags={setParentTags}/>
+
+            <div className="my-5 flex justify-center">
+              <Button
+              flat
+                className="bg-blue-200"
+                type="submit"
+              >
+                Submit
+              </Button>
+            </div>
+            <div className="h-5" />
+          </form>
+        </div>
             </Modal.Body>
             <Modal.Footer>
               <StyledButton auto flat color="error" onClick={handleClose}>

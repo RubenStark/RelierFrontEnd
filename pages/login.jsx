@@ -1,23 +1,21 @@
+import React, { useState } from "react";
 import { Card, Text, Input, Row, Checkbox, StyledButton, Loading } from "@nextui-org/react";
-import { useState } from "react";
 import { values, size } from "lodash";
 import { toast } from "react-toastify";
 import { isEmailValid } from "../utils/validations";
 import { setTokenApi, signInApi, signUpApi } from "../api/auth";
 import { useRouter } from "next/router";
 
-function initialFormValue() {
-    return {
-        name: "",
-        username: "",
-        email: "",
-        password: "",
-    };
-}
-
 function Login() {
     const [signUp, setSignUp] = useState(false);
-    const [formData, setFormData] = useState(initialFormValue());
+    const [formData, setFormData] = useState(
+        {
+            email: "",
+            username: "",
+            name: "",
+            password: "",
+        }
+    );
     const [signUpLoading, setSignUpLoading] = useState(false);
     const router = useRouter();
 
@@ -25,37 +23,36 @@ function Login() {
         setSignUp(!signUp);
     };
 
-    const onChange = e => {
+    const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-
-    const onSubmit = e => {
+    const onSubmit = (e) => {
         e.preventDefault();
 
+        console.log(formData)
+
         let validCount = 0;
-        values(formData).some(value => {
+        values(formData).forEach((value) => {
             value && validCount++;
-            return null;
         });
 
         if (signUp) {
             if (validCount !== size(formData)) {
                 toast.warning("Completa todos los campos del formulario");
             } else {
-                ValidateSignUp();
+                validateSignUp();
             }
         } else {
-            if (validCount !== size(formData) - 2) {
+            if (formData.email === "" || formData.password === "") {
                 toast.warning("Completa todos los campos del formulario");
             } else {
-                ValidateLogin();
+                validateLogin();
             }
         }
     };
 
-    function ValidateLogin() {
-
+    const validateLogin = () => {
         if (!isEmailValid(formData.email)) {
             toast.warning("Email invalido");
         } else if (size(formData.password) < 6) {
@@ -63,12 +60,12 @@ function Login() {
         } else {
             setSignUpLoading(true);
             signInApi(formData)
-                .then(response => {
+                .then((response) => {
                     if (response.message) {
                         toast.warning(response.message);
                     } else {
                         setTokenApi(response.token);
-                        router.push('/');
+                        router.push("/");
                     }
                 })
                 .catch(() => {
@@ -76,15 +73,17 @@ function Login() {
                 })
                 .finally(() => {
                     setSignUpLoading(false);
-                    setFormData(initialFormValue());
+                    setFormData({
+                        email: "",
+                        username: "",
+                        name: "",
+                        password: "",
+                    });
                 });
         }
-
     };
 
-
-    function ValidateSignUp() {
-
+    const validateSignUp = () => {
         if (!isEmailValid(formData.email)) {
             toast.warning("Email invalido");
         } else if (size(formData.password) < 6) {
@@ -92,8 +91,8 @@ function Login() {
         } else {
             setSignUpLoading(true);
             signUpApi(formData)
-                .then(response => {
-                    console.log(response)
+                .then((response) => {
+                    console.log(response);
                     if (response.code === 200) {
                         toast.success(response.message);
                     } else {
@@ -105,12 +104,15 @@ function Login() {
                 })
                 .finally(() => {
                     setSignUpLoading(false);
-                    setFormData(initialFormValue());
+                    setFormData({
+                        email: "",
+                        username: "",
+                        name: "",
+                        password: "",
+                    });
                 });
         }
-
     };
-
 
     return (
 
@@ -133,7 +135,7 @@ function Login() {
                             </div>
                         </Card.Header>
                         <Card.Body>
-                            <form onChange={onChange} onSubmit={onSubmit}>
+                            <form onChange={onChange} onSubmit={onSubmit} id="form" name="form">
                                 <Input
                                     clearable
                                     bordered
@@ -159,7 +161,7 @@ function Login() {
                                                 size="lg"
                                                 placeholder="Username"
                                                 contentLeft={<Mail fill="currentColor" />}
-                                                value={formData.username}
+                                                // value={formData.username}
                                                 label="Username"
                                                 name="username"
                                             />
@@ -173,7 +175,7 @@ function Login() {
                                                 size="lg"
                                                 placeholder="Name"
                                                 contentLeft={<Mail fill="currentColor" />}
-                                                value={formData.name}
+                                                // value={formData.name}
                                                 label="Name"
                                                 name="name"
                                             />
@@ -190,7 +192,7 @@ function Login() {
                                     size="lg"
                                     placeholder="Password"
                                     contentLeft={<Password fill="currentColor" />}
-                                    value={formData.password}
+                                    // value={formData.password}
                                     label="Password"
                                     name="password"
                                 />
