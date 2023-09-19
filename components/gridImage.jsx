@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function GridImage({ url, onClick }) {    
+export default function GridImage({ url, onClick }) {
 
     const [height, setHeight] = useState(0);
 
@@ -22,7 +22,7 @@ export default function GridImage({ url, onClick }) {
 
     return (
         <div style={{ height }} onClick={onClick}>
-            <img src={url} className="object-cover w-full h-full" alt="" />
+                <img src={url} className="object-cover w-full h-full hover:brightness-75" alt="" />
         </div>
     );
 }
