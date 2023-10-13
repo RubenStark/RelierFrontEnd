@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
 
   if (!loadUser) return null;
 
-  if (router.pathname === "/login" || router.pathname === "/register" || router.pathname === "/story") {
+  if (router.pathname === "/login" || router.pathname === "/register" || router.pathname === "/story2") {
     return (
       <QueryClientProvider client={queryClient}>
         <NextUIProvider>
